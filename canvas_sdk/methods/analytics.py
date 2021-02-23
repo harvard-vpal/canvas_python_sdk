@@ -312,7 +312,7 @@ def get_course_level_participation_data(request_ctx, course_id, **request_kwargs
     return response
 
 
-def get_course_level_assignment_data(request_ctx, course_id, async, **request_kwargs):
+def get_course_level_assignment_data(request_ctx, course_id, asych_bool, **request_kwargs):
     """
     Returns a list of assignments for the course sorted by due date. For
     each assignment returns basic assignment information, the grade breakdown,
@@ -322,8 +322,8 @@ def get_course_level_assignment_data(request_ctx, course_id, async, **request_kw
         :type request_ctx: :class:RequestContext
         :param course_id: (required) ID
         :type course_id: string
-        :param async: (required) If async is true, then the course_assignments call can happen asynch- ronously and MAY return a response containing a progress_url key instead of an assignments array. If it does, then it is the caller's responsibility to poll the API again to see if the progress is complete. If the data is ready (possibly even on the first async call) then it will be passed back normally, as documented in the example response.
-        :type async: boolean
+        :param asych_bool: (required) If asych_bool is true, then the course_assignments call can happen asynch- ronously and MAY return a response containing a progress_url key instead of an assignments array. If it does, then it is the caller's responsibility to poll the API again to see if the progress is complete. If the data is ready (possibly even on the first async call) then it will be passed back normally, as documented in the example response.
+        :type asych_bool: boolean
         :return: Get course-level assignment data
         :rtype: requests.Response (with void data)
 
@@ -331,7 +331,7 @@ def get_course_level_assignment_data(request_ctx, course_id, async, **request_kw
 
     path = '/v1/courses/{course_id}/analytics/assignments'
     payload = {
-        'async' : async,
+        'async' : asych_bool,
     }
     url = request_ctx.base_api_url + path.format(course_id=course_id)
     response = client.get(request_ctx, url, payload=payload, **request_kwargs)
